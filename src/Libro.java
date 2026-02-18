@@ -15,6 +15,7 @@ public class Libro {
         this.prestado = false;
     }
 
+    // Getter
     public int getId() {
         return id;
     }
@@ -37,6 +38,31 @@ public class Libro {
 
     public boolean isPrestado() {
         return prestado;
+    }
+
+    // Setter
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public void setPrestado(boolean prestado) {
+        this.prestado = prestado;
     }
 
     @Override

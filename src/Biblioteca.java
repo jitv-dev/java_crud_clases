@@ -27,7 +27,7 @@ public class Biblioteca {
     // Read - Leer libros
     public void listarLibros(){
         if (libros.isEmpty()){
-            System.out.println("\n No tenemos libros registrados");
+            System.out.println("No tenemos libros registrados");
             return;
         }
         imprimirCabecera();
@@ -40,7 +40,7 @@ public class Biblioteca {
 
     // Read - Buscar por ID
     public void buscarPorId(){
-        System.out.println("\n Ingrese ID a buscar");
+        System.out.println("Ingrese ID a buscar");
         int id = leerEntero();
         Libro libro = encontrarLibroPorId(id);
         if (libro != null){
@@ -54,7 +54,7 @@ public class Biblioteca {
 
     // Read - Buscar por Titulo
     public void buscarPorTitulo(){
-        System.out.println("\n Ingrese titulo a buscar");
+        System.out.println("Ingrese titulo a buscar");
         String busqueda = teclado.nextLine().toLowerCase();
         boolean encontrado = false;
         imprimirCabecera();
@@ -86,6 +86,117 @@ public class Biblioteca {
         Libro nuevo = new Libro(contadorId++, titulo, autor, anio, genero);
         libros.add(nuevo);
         System.out.println("Libro agregado con el ID: " + nuevo.getId());
+    }
+
+    // Update - Actualizar libro
+    public void actualizarLibro(){
+        System.out.println("Ingrese ID a actualizar: ");
+        int id = leerEntero();
+        Libro libro = encontrarLibroPorId(id);
+
+        if (libro == null) {
+            System.out.printf("No existe un libro con ID: " + id);
+            return;
+        }
+
+        // Mostrar libro actual
+        imprimirCabecera();
+        System.out.println(libro);
+        imprimirPie();
+
+        // Sub-menu de actualizacion
+        System.out.println("Qué desea actualizar?");
+        System.out.println("1. Titulo");
+        System.out.println("2. Autor");
+        System.out.println("3. Año");
+        System.out.println("4. Género");
+        System.out.println("5. Todos los campos");
+        System.out.println("Ingrese su opción: ");
+        int opcion = leerEntero();
+
+        switch (opcion){
+            case 1:
+                System.out.println("Nuevo titulo");
+                libro.setTitulo(teclado.nextLine());
+                break;
+            case 2:
+                System.out.println("Nuevo Autor");
+                libro.setAutor(teclado.nextLine());
+                break;
+            case 3:
+                System.out.println("Nuevo Año");
+                libro.setAnio(leerEntero());
+                break;
+            case 4:
+                System.out.println("Nuevo Género");
+                libro.setGenero(teclado.nextLine());
+                break;
+            case 5:
+                System.out.println("Nuevo titulo"); libro.setTitulo(teclado.nextLine());
+                System.out.println("Nuevo Autor"); libro.setAutor(teclado.nextLine());
+                System.out.println("Nuevo Año"); libro.setAnio(leerEntero());
+                System.out.println("Nuevo Género"); libro.setGenero(teclado.nextLine());
+                break;
+            default:
+                System.out.println("Opción no válida");
+                return;
+        }
+        System.out.println("Libro actualizado correctamente");
+    }
+
+    // Delete - Eliminar un libro
+    public void eliminarLibro(){
+        System.out.println("Ingrese el ID del libro a eliminar");
+        int id = leerEntero();
+        Libro libro = encontrarLibroPorId(id);
+
+        if (libro == null) {
+            System.out.printf("No existe un libro con ID: " + id);
+            return;
+        }
+
+        // Mostrar libro antes de eliminar
+        imprimirCabecera();
+        System.out.println(libro);
+        imprimirPie();
+
+        // Pedir confirmacion
+        System.out.println("Está seguro de eliminar este libro? Si/No");
+        String confirmacion = teclado.nextLine();
+
+        if (confirmacion.equalsIgnoreCase("si")){
+            System.out.println("Libro eliminado correctamente");
+        } else {
+            System.out.println("Eliminación cancelada");
+        }
+    }
+
+    public void prestarLibro(){
+        System.out.println("Ingrese ID del libro a prestar: ");
+        int id = leerEntero();
+        Libro libro = encontrarLibroPorId(id);
+
+        if (libro == null) {
+            System.out.println("No existe un libro con ID: " + id);
+        } else if (libro.isPrestado()) {
+            System.out.println("El libro ya está prestado");
+        } else {
+            System.out.println("Libro: " + libro.getTitulo() + " marcado como prestado");
+        }
+    }
+
+    public void devolverLibro(){
+        System.out.println("Ingrese ID del libro a devolver: ");
+        int id = leerEntero();
+        Libro libro = encontrarLibroPorId(id);
+
+        if (libro == null) {
+            System.out.println("No existe un libro con ID: " + id);
+        } else if (!libro.isPrestado()) {
+            System.out.println("El libro ya está disponible");
+        } else {
+            System.out.println("Libro: " + libro.getTitulo() + " devuelto");
+        }
     }
 
     // Metodos auxiliares

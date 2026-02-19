@@ -166,6 +166,7 @@ public class Biblioteca {
 
         if (confirmacion.equalsIgnoreCase("si")){
             System.out.println("Libro eliminado correctamente");
+            libros.remove(libro);
         } else {
             System.out.println("Eliminación cancelada");
         }
@@ -182,6 +183,7 @@ public class Biblioteca {
             System.out.println("El libro ya está prestado");
         } else {
             System.out.println("Libro: " + libro.getTitulo() + " marcado como prestado");
+            libro.setPrestado(true);
         }
     }
 
@@ -196,6 +198,7 @@ public class Biblioteca {
             System.out.println("El libro ya está disponible");
         } else {
             System.out.println("Libro: " + libro.getTitulo() + " devuelto");
+            libro.setPrestado(false);
         }
     }
 
